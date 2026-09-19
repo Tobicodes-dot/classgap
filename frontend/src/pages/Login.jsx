@@ -24,7 +24,7 @@ function Login() {
 
       console.log("Logged in:", response.data.user);
 
-      alert(`Welcome, ${response.data.user.name}`);
+     window.location.href = "/admin-dashboard";
     } catch (err) {
       setError(
         err.response?.data?.message || "Something went wrong."
