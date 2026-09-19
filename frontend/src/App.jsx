@@ -1,19 +1,46 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import AdminDashboard from "./pages/AdminDashboard";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-function App(){
+import Login from "./pages/Login";
+import AdminLayout from "./components/AdminLayout";
+import Dashboard from "./pages/admin/Dashboard";
+
+function App() {
   const token = localStorage.getItem("token");
 
-    return (
-        <BrowserRouter>
-          <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/admin-dashboard" element={token ? <AdminDashboard /> : <Navigate to="/login" />} />
-              <Route path="*" element={<Navigate to="/login" />} />
-          </Routes>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            token ? (
+              <Navigate to="/admin/dashboard" />
+            ) : (
+              <Login />
+            )
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            token ? (
+              <AdminLayout />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
