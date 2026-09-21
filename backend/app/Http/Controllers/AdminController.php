@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use App\Models\SchoolClass;
-use App\Models\students;
-use App\Models\subject;
-use App\Models\user;
-
-
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Topic;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    public function dashboard() {
+    public function dashboard()
+    {
         return response()->json([
-            'students' => student::count(),
-            'teachers' => user::where('role', 'teacher')->count(),
+            'students' => Student::count(),
+            'teachers' => User::where('role', 'teacher')->count(),
             'classes' => SchoolClass::count(),
-            'subjects' => subject::count(),
-            'schools' => School::first(),
+            'subjects' => Subject::count(),
+            'topics' => Topic::count(),
+            'school' => School::first(),
         ]);
     }
 }

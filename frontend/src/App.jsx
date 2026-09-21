@@ -8,6 +8,7 @@ import {
 import Login from "./pages/Login";
 import AdminLayout from "./components/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
+import Classes from "./pages/admin/Classes";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -37,6 +38,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="classes" element={<Classes />} />
         </Route>
       </Routes>
     </BrowserRouter>

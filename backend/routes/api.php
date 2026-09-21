@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -11,4 +12,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('admin/dashboard', [AdminController::class, 'dashboard']);
+    //Class Routes
+    Route::get('/classes', [ClassController::class, 'index']);
+    Route::post('/classes', [ClassController::class, 'store']);
+    Route::put('/classes/{schoolClass}', [ClassController::class, 'update']);
+    Route::delete('/classes/{schoolClass}', [ClassController::class, 'destroy']);
 });
