@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\TeacherController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -17,4 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/classes', [ClassController::class, 'store']);
     Route::put('/classes/{schoolClass}', [ClassController::class, 'update']);
     Route::delete('/classes/{schoolClass}', [ClassController::class, 'destroy']);
+    //Teacher Routes
+    Route::get('/teachers', [TeacherController::class, 'index']);
+    Route::post('/teachers', [TeacherController::class, 'store']);
+Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
+Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy']);
 });
