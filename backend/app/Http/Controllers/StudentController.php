@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -21,19 +22,30 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8'],
             'school_id' => ['required', 'exists:schools,id'],
             'school_class_id' => ['required', 'exists:school_classes,id'],
         ]);
 
-        $student = Student::create($data);
+        $student = DB::transaction(function () use ($data) {
+            $user = \App\Models\User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'role' => 'student',
+            ]);
+
+            return Student::create([
+                'user_id' => $user->id,
+                'school_id' => $data['school_id'],
+                'school_class_id' => $data['school_class_id'],
+            ]);
+        });
 
         return response()->json(
-            $student->load([
-                'user',
-                'school',
-                'schoolClass'
-            ]),
+            $student->load(['user', 'school', 'schoolClass']),
             201
         );
     }
