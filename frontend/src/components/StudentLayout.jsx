@@ -3,29 +3,22 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   LayoutDashboard,
-  Layers,
-  GraduationCap,
-  Users,
-  BookOpen,
-  ListOrdered,
   CheckSquare,
+  TrendingUp,
+  Target,
   LogOut,
   Menu,
   X,
-  Bell,
 } from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Classes", path: "/admin/classes", icon: Layers },
-  { name: "Teachers", path: "/admin/teachers", icon: GraduationCap },
-  { name: "Students", path: "/admin/students", icon: Users },
-  { name: "Subjects", path: "/admin/subjects", icon: BookOpen },
-  { name: "Topics", path: "/admin/topics", icon: ListOrdered },
-  { name: "Assessments", path: "/admin/assessments", icon: CheckSquare },
+  { name: "My Dashboard", path: "/student/dashboard", icon: LayoutDashboard },
+  { name: "Take Assessments", path: "/student/assessments", icon: CheckSquare },
+  { name: "My Progress & Gaps", path: "/student/progress", icon: TrendingUp },
+  { name: "My Learning Plan", path: "/student/interventions", icon: Target },
 ];
 
-export default function AdminLayout() {
+export default function StudentLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -34,6 +27,8 @@ export default function AdminLayout() {
     await logout();
     navigate("/");
   };
+
+  const studentClass = user?.student?.school_class?.name || "JSS 2";
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -52,7 +47,7 @@ export default function AdminLayout() {
         }`}
       >
         <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold text-white shadow-md shadow-indigo-600/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-lg font-bold text-white shadow-md shadow-emerald-600/20">
             C
           </div>
 
@@ -60,7 +55,7 @@ export default function AdminLayout() {
             <h1 className="text-lg font-bold tracking-tight text-slate-900">
               ClassGap
             </h1>
-            <p className="text-xs text-indigo-600 font-semibold">Admin Portal</p>
+            <p className="text-xs text-emerald-600 font-semibold">Student Portal</p>
           </div>
 
           <button
@@ -72,8 +67,13 @@ export default function AdminLayout() {
         </div>
 
         <div className="px-4 py-6">
+          <div className="mb-4 rounded-xl bg-emerald-50/70 p-3 border border-emerald-100">
+            <p className="text-[11px] font-bold text-emerald-800 uppercase">Enrolled Class</p>
+            <p className="text-sm font-extrabold text-emerald-900">{studentClass}</p>
+          </div>
+
           <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            School Management
+            Learning Navigation
           </p>
 
           <nav className="space-y-1">
@@ -87,7 +87,7 @@ export default function AdminLayout() {
                   className={({ isActive }) =>
                     `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                       isActive
-                        ? "bg-indigo-50 text-indigo-700 font-semibold shadow-xs"
+                        ? "bg-emerald-50 text-emerald-700 font-semibold shadow-xs"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`
                   }
@@ -101,15 +101,15 @@ export default function AdminLayout() {
         </div>
 
         <div className="mt-auto border-t border-slate-100 p-4 space-y-3">
-          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
-              {user?.name?.charAt(0) || "A"}
+          <div className="flex items-center gap-3 rounded-xl bg-emerald-50/40 p-3 border border-emerald-100">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">
+              {user?.name?.charAt(0) || "S"}
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-semibold text-slate-800">
-                {user?.name || "Administrator"}
+                {user?.name || "Student"}
               </p>
-              <p className="truncate text-[11px] text-slate-400">{user?.email || "admin"}</p>
+              <p className="truncate text-[11px] text-emerald-600 font-medium">{studentClass}</p>
             </div>
           </div>
 
@@ -134,30 +134,30 @@ export default function AdminLayout() {
           </button>
 
           <div className="hidden lg:block">
-            <p className="text-xs font-medium text-slate-400">ClassGap Intelligence</p>
+            <p className="text-xs font-medium text-slate-400">ClassGap Learning Hub</p>
             <p className="font-semibold text-slate-800">
-              Administration Workspace
+              Welcome to your personal learning space!
             </p>
           </div>
 
           <div className="ml-auto flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-200">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              Online
+              {studentClass}
             </span>
 
             <div className="hidden h-6 w-px bg-slate-200 sm:block" />
 
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white shadow-xs">
-                {user?.name?.charAt(0) || "A"}
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white shadow-xs">
+                {user?.name?.charAt(0) || "S"}
               </div>
               <div className="hidden sm:block">
                 <p className="text-xs font-semibold text-slate-800">
-                  {user?.name || "Admin"}
+                  {user?.name || "Student"}
                 </p>
-                <p className="text-[11px] text-indigo-600 font-medium capitalize">
-                  {user?.role || "Administrator"}
+                <p className="text-[11px] text-emerald-600 font-medium">
+                  Student Learner
                 </p>
               </div>
             </div>

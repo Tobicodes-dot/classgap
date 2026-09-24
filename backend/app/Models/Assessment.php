@@ -13,6 +13,7 @@ class Assessment extends Model
         'school_class_id',
         'subject_id',
         'title',
+        'type',
     ];
 
     public function schoolClass()

@@ -12,8 +12,20 @@ class AssessmentController extends Controller
         return response()->json(
             Assessment::with([
                 'schoolClass',
-                'subject'
+                'subject',
+                'questions.topic',
             ])->get()
+        );
+    }
+
+    public function show(Assessment $assessment)
+    {
+        return response()->json(
+            $assessment->load([
+                'schoolClass',
+                'subject',
+                'questions.topic',
+            ])
         );
     }
 
@@ -23,6 +35,7 @@ class AssessmentController extends Controller
             'school_class_id' => ['required', 'exists:school_classes,id'],
             'subject_id' => ['required', 'exists:subjects,id'],
             'title' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'in:diagnostic,follow_up'],
         ]);
 
         $assessment = Assessment::create($data);
@@ -30,7 +43,8 @@ class AssessmentController extends Controller
         return response()->json(
             $assessment->load([
                 'schoolClass',
-                'subject'
+                'subject',
+                'questions.topic',
             ]),
             201
         );
@@ -52,6 +66,10 @@ class AssessmentController extends Controller
                 'string',
                 'max:255'
             ],
+            'type' => [
+                'required',
+                'in:diagnostic,follow_up'
+            ],
         ]);
 
         $assessment->update($data);
@@ -59,7 +77,8 @@ class AssessmentController extends Controller
         return response()->json(
             $assessment->load([
                 'schoolClass',
-                'subject'
+                'subject',
+                'questions.topic',
             ])
         );
     }

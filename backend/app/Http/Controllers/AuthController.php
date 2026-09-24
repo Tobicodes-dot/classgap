@@ -24,6 +24,7 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('classgap-token')->plainTextToken;
+        $user->load(['student.schoolClass', 'student.school', 'teacher.school']);
 
         return response()->json([
             'user' => $user,
@@ -33,8 +34,11 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
+        $user = $request->user();
+        $user->load(['student.schoolClass', 'student.school', 'teacher.school']);
+
         return response()->json([
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 

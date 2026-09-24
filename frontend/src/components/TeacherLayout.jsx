@@ -3,29 +3,24 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   LayoutDashboard,
-  Layers,
-  GraduationCap,
-  Users,
-  BookOpen,
-  ListOrdered,
   CheckSquare,
+  Zap,
+  Target,
+  TrendingUp,
   LogOut,
   Menu,
   X,
-  Bell,
 } from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Classes", path: "/admin/classes", icon: Layers },
-  { name: "Teachers", path: "/admin/teachers", icon: GraduationCap },
-  { name: "Students", path: "/admin/students", icon: Users },
-  { name: "Subjects", path: "/admin/subjects", icon: BookOpen },
-  { name: "Topics", path: "/admin/topics", icon: ListOrdered },
-  { name: "Assessments", path: "/admin/assessments", icon: CheckSquare },
+  { name: "Overview", path: "/teacher/dashboard", icon: LayoutDashboard },
+  { name: "Assessments & Tests", path: "/teacher/assessments", icon: CheckSquare },
+  { name: "Learning Gaps", path: "/teacher/learning-gaps", icon: Zap },
+  { name: "Intervention Plans", path: "/teacher/interventions", icon: Target },
+  { name: "Student Progress", path: "/teacher/students", icon: TrendingUp },
 ];
 
-export default function AdminLayout() {
+export default function TeacherLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -52,7 +47,7 @@ export default function AdminLayout() {
         }`}
       >
         <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold text-white shadow-md shadow-indigo-600/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600 text-lg font-bold text-white shadow-md shadow-purple-600/20">
             C
           </div>
 
@@ -60,7 +55,7 @@ export default function AdminLayout() {
             <h1 className="text-lg font-bold tracking-tight text-slate-900">
               ClassGap
             </h1>
-            <p className="text-xs text-indigo-600 font-semibold">Admin Portal</p>
+            <p className="text-xs text-purple-600 font-semibold">Teacher Portal</p>
           </div>
 
           <button
@@ -73,7 +68,7 @@ export default function AdminLayout() {
 
         <div className="px-4 py-6">
           <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            School Management
+            Diagnostic & Teaching
           </p>
 
           <nav className="space-y-1">
@@ -87,7 +82,7 @@ export default function AdminLayout() {
                   className={({ isActive }) =>
                     `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                       isActive
-                        ? "bg-indigo-50 text-indigo-700 font-semibold shadow-xs"
+                        ? "bg-purple-50 text-purple-700 font-semibold shadow-xs"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`
                   }
@@ -101,15 +96,15 @@ export default function AdminLayout() {
         </div>
 
         <div className="mt-auto border-t border-slate-100 p-4 space-y-3">
-          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
-              {user?.name?.charAt(0) || "A"}
+          <div className="flex items-center gap-3 rounded-xl bg-purple-50/50 p-3 border border-purple-100">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-600 text-sm font-bold text-white">
+              {user?.name?.charAt(0) || "T"}
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-semibold text-slate-800">
-                {user?.name || "Administrator"}
+                {user?.name || "Teacher"}
               </p>
-              <p className="truncate text-[11px] text-slate-400">{user?.email || "admin"}</p>
+              <p className="truncate text-[11px] text-purple-600 font-medium">Instructor</p>
             </div>
           </div>
 
@@ -134,30 +129,30 @@ export default function AdminLayout() {
           </button>
 
           <div className="hidden lg:block">
-            <p className="text-xs font-medium text-slate-400">ClassGap Intelligence</p>
+            <p className="text-xs font-medium text-slate-400">Classroom Intelligence</p>
             <p className="font-semibold text-slate-800">
-              Administration Workspace
+              Diagnostic & Intervention Hub
             </p>
           </div>
 
           <div className="ml-auto flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-200">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              Online
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700 border border-purple-200">
+              <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse" />
+              Teacher Session
             </span>
 
             <div className="hidden h-6 w-px bg-slate-200 sm:block" />
 
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white shadow-xs">
-                {user?.name?.charAt(0) || "A"}
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-600 text-sm font-bold text-white shadow-xs">
+                {user?.name?.charAt(0) || "T"}
               </div>
               <div className="hidden sm:block">
                 <p className="text-xs font-semibold text-slate-800">
-                  {user?.name || "Admin"}
+                  {user?.name || "Teacher"}
                 </p>
-                <p className="text-[11px] text-indigo-600 font-medium capitalize">
-                  {user?.role || "Administrator"}
+                <p className="text-[11px] text-purple-600 font-medium">
+                  Educator
                 </p>
               </div>
             </div>
