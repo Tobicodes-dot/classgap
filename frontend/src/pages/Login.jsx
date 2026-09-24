@@ -91,15 +91,13 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100">
-      {/* Left visual banner for large screens */}
+    <div className="flex min-h-screen bg-linear-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100">
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden p-12 lg:flex">
-        {/* Decorative background glows */}
         <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 right-0 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-400 text-xl font-extrabold text-white shadow-lg shadow-indigo-500/30">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-tr from-indigo-500 to-indigo-400 text-xl font-extrabold text-white shadow-lg shadow-indigo-500/30">
             C
           </div>
           <div>

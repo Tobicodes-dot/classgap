@@ -12,7 +12,6 @@ import {
   LogOut,
   Menu,
   X,
-  Bell,
 } from "lucide-react";
 
 const navigation = [
