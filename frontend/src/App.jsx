@@ -7,7 +7,7 @@ import {
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// Auth
+
 import Login from "./pages/Login";
 
 // Admin Portal

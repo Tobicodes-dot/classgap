@@ -1,0 +1,26 @@
+info:
+  name: admin login
+  type: http
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/api/login
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "email": "admin@classgap.test",
+        "password": "password"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
